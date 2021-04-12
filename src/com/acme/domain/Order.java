@@ -8,10 +8,17 @@ public class Order {
 	private double orderAmount;
 	private static double taxRate = 0.05;
 	private String customer;
-	private Good product;
+	private Product product;
 	private int quantity;
+private static Rushable rushable;
+	public static Rushable getRushable(){return rushable;}
+	public static void setRushable(Rushable rushable)
+	{Order.rushable = rushable;}
+	public boolean isPriorityOrder(){
+		boolean priorityOrder = false;if( rushable != null ) {priorityOrder = rushable.isRushable(orderDate, orderAmount);}
+		return priorityOrder;}
 
-	public Order(MyDate d, double amt, String c, Good p, int q) {
+	public Order(MyDate d, double amt, String c, Product p, int q) {
 		setOrderDate(d);
 		orderAmount = amt;
 		customer = c;
@@ -52,14 +59,14 @@ public class Order {
 		if (orderAmount > 1500)
 			finalAmount = orderAmount;
 		switch (jobSize()) {
-		case 'S':
-			return finalAmount;
-		case 'M':
-			return finalAmount - orderAmount * 0.01;
-		case 'L':
-			return finalAmount - orderAmount * 0.02;
-		default:
-			return finalAmount - orderAmount * 0.03;
+			case 'S':
+				return finalAmount;
+			case 'M':
+				return finalAmount - orderAmount * 0.01;
+			case 'L':
+				return finalAmount - orderAmount * 0.02;
+			default:
+				return finalAmount - orderAmount * 0.03;
 
 		}
 	}
@@ -71,7 +78,7 @@ public class Order {
 	public void setOrderDate(MyDate orderDate) {
 		this.orderDate = orderDate;
 	}
-	
+
 	public double getOrderAmount() {
 		return orderAmount;
 	}
@@ -79,12 +86,12 @@ public class Order {
 	public void setOrderAmount(double orderAmount) {
 		this.orderAmount = orderAmount;
 	}
-	
+
 	public static double getTaxRate() {
 		return taxRate;
 	}
 
-	
+
 	public String getCustomer() {
 		return customer;
 	}
@@ -92,15 +99,15 @@ public class Order {
 	public void setCustomer(String customer) {
 		this.customer = customer;
 	}
-	
-	public Good getProduct() {
+
+	public Product getProduct() {
 		return product;
 	}
 
-	public void setProduct(Good product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
-	
+
 	public int getQuantity() {
 		return quantity;
 	}
@@ -108,7 +115,7 @@ public class Order {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
-	
-	
+
+
+
 }
